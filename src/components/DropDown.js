@@ -15,18 +15,17 @@ export default class DropDown extends Component {
   }
 
   handleSubmit(event) {
-    const hours = this.state.value
+    const hours = this.props.value
     event.preventDefault()
     return hours
   }
 
   render() {
-    const { onSubmit, children, checked } = this.props
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
           Add hours:
-          <select value={this.state.value} onChange={this.handleChange}>
+          <select value={this.props.value} onChange={this.handleChange}>
             <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
