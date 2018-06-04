@@ -25,14 +25,18 @@ class App extends Component {
           <input type="calendar" />{' '}
         </label>
         <DropDown />
-        <SaveButton onClick={e => this.props.onCompare()} />
-        <div></div>
+        <SaveButton onClick={e => this.props.onCompare(hours)} />
+        <div />
       </div>
     )
   }
 
   onCompare() {
-    if () {}
+    if (hours > 8 || hours === 8) {
+      return 'well done'
+    } else {
+      return 'try to go to bed early today'
+    }
   }
 }
 

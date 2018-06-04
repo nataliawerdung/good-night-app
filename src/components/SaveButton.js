@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styled from 'react-emotion'
+import styled, { css } from 'react-emotion'
 
 const StyledSaveButton = styled('section')`
   height: 40px;
@@ -12,6 +12,10 @@ const StyledSaveButton = styled('section')`
 
 export default class SaveButton extends Component {
   render() {
-    return <StyledSaveButton key={day.id} onClick={onClick} />
+    return (
+      <StyledSaveButton>
+        <button onClick={onClick} />
+      </StyledSaveButton>
+    )
   }
 }
