@@ -17,7 +17,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "deploy":
+      "npm run build && cd build && rm static/{css,js}/*.map && now --public"
   },
   "devDependencies": {
     "@storybook/react": "^3.4.6",

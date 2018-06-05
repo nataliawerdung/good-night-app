@@ -2,30 +2,13 @@ import React, { Component } from 'react'
 import { css } from 'emotion'
 
 export default class DropDown extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { value: '8' }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value })
-  }
-
-  handleSubmit(event) {
-    const hours = this.props.value
-    event.preventDefault()
-    return hours
-  }
-
   render() {
+    const { onSubmit, value, onChange } = this.props
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={onSubmit}>
         <label>
           Add hours:
-          <select value={this.props.value} onChange={this.handleChange}>
+          <select value={value} onChange={onChange}>
             <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
