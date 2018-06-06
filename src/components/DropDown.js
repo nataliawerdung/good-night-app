@@ -12,7 +12,7 @@ export default class DropDown extends Component {
   render() {
     const { onSubmit, value, onChange } = this.props
     return (
-      <form onSubmit={onSubmit} className={this.styles}>
+      <form className={this.styles}>
         <label>
           Add hours:
           <select value={value} onChange={onChange}>
@@ -26,7 +26,6 @@ export default class DropDown extends Component {
             <option value="12">12</option>
           </select>
         </label>
-        <input type="submit" value="Submit" />
       </form>
     )
   }

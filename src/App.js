@@ -48,8 +48,11 @@ class App extends Component {
           <input type="date" placeholder="chose date" />
         </form>
         <DropDown
-          onChange={e => this.props.handleChange()}
-          onSubmit={e => this.props.handleSubmit()}
+          onChange={e =>
+            this.setState({
+              value: event.target.value,
+            })
+          }
           className={css`
             grid-area: hours;
           `}
@@ -68,14 +71,6 @@ class App extends Component {
         <div />
       </div>
     )
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value })
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
   }
 
   onCompare() {
