@@ -15,17 +15,17 @@ const grid = css`
     'hours hours hours'
     '. save .'
     'placeholder placeholder placeholder';
-  width: 240px;
 `
 
 class App extends Component {
   state = {
     days: [
-      { date: '2018-06-01', sleeplength: 8, id: 0 },
-      { date: '2018-06-01', sleeplength: 9, id: 1 },
-      { date: '2018-05-31', sleeplength: 7, id: 2 },
+      { date: '2018-06-01', sleepLength: 8, id: 0 },
+      { date: '2018-06-01', sleepLength: 9, id: 1 },
+      { date: '2018-05-31', sleepLength: 7, id: 2 },
     ],
     value: 8,
+    message: '',
   }
 
   render() {
@@ -36,8 +36,7 @@ class App extends Component {
             grid-area: goal;
           `}
         >
-          {' '}
-          goal: 8 hours{' '}
+          goal: 8 hours
         </h2>
         <form
           className={css`
@@ -48,21 +47,10 @@ class App extends Component {
           <input type="date" placeholder="chose date" />
         </form>
         <DropDown
-          onChange={e =>
-            this.setState({
-              value: event.target.value,
-            })
-          }
-          className={css`
-            grid-area: hours;
-          `}
+          onChange={e => this.handleChange(e)}
+          onSubmit={e => this.handleSubmit(e)}
         />
-        <SaveButton
-          onClick={e => this.props.onCompare()}
-          className={css`
-            grid-area: save;
-          `}
-        />
+        <SaveButton onClick={e => this.onCompare()} />
         <div
           className={css`
             grid-area: placeholder;
@@ -72,13 +60,20 @@ class App extends Component {
       </div>
     )
   }
+  handleChange(event) {
+    this.setState({ value: event.target.value })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+  }
 
   onCompare() {
     const hours = this.state.value
     if (hours >= 8) {
-      return 'well done'
+      this.setState({ message: 'well done' })
     }
-    return 'try to go to bed early today'
+    this.setState({ message: 'try to go to bed early today' })
   }
 }
 
