@@ -1,8 +1,22 @@
 import React, { Component } from 'react'
-import globalStyles from './styles/global'
+import { css } from 'emotion'
 
 import DropDown from './components/DropDown'
 import SaveButton from './components/SaveButton'
+
+const grid = css`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+  grid-template-rows: 50px 70px 70px 50px auto;
+  grid-template-areas:
+    '. goal .'
+    'date date date'
+    'hours hours hours'
+    '. save .'
+    'placeholder placeholder placeholder';
+  width: 240px;
+`
 
 class App extends Component {
   state = {
@@ -16,16 +30,41 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h2> goal: 8 hours </h2>
-        <label text="add night">
-          <input type="calendar" />{' '}
-        </label>
+      <div className={grid}>
+        <h2
+          className={css`
+            grid-area: goal;
+          `}
+        >
+          {' '}
+          goal: 8 hours{' '}
+        </h2>
+        <form
+          className={css`
+            grid-area: date;
+          `}
+        >
+          <label> Add night: </label>
+          <input type="date" placeholder="chose date" />
+        </form>
         <DropDown
           onChange={e => this.props.handleChange()}
           onSubmit={e => this.props.handleSubmit()}
+          className={css`
+            grid-area: hours;
+          `}
         />
-        <SaveButton onClick={e => this.props.onCompare()} />
+        <SaveButton
+          onClick={e => this.props.onCompare()}
+          className={css`
+            grid-area: save;
+          `}
+        />
+        <div
+          className={css`
+            grid-area: placeholder;
+          `}
+        />
         <div />
       </div>
     )
@@ -36,17 +75,15 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    const hours = this.state.value
     event.preventDefault()
-    return hours
   }
 
   onCompare() {
-    if (hours > 8 || hours === 8) {
+    const hours = this.state.value
+    if (hours >= 8) {
       return 'well done'
-    } else {
-      return 'try to go to bed early today'
     }
+    return 'try to go to bed early today'
   }
 }
 
