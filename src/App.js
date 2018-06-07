@@ -7,14 +7,17 @@ import SaveButton from './components/SaveButton'
 const grid = css`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 5px;
-  grid-template-rows: 50px 70px 70px 50px auto;
+  grid-gap: 10px;
+  grid-template-rows: 75px 85px 85px 50px auto;
   grid-template-areas:
-    '. goal goal'
+    'goal goal goal'
     'date date date'
     'hours hours hours'
     '. save .'
     'placeholder placeholder placeholder';
+  background: lightblue;
+  color: white;
+  font-size: 18px;
 `
 
 class App extends Component {
@@ -35,6 +38,8 @@ class App extends Component {
         <h2
           className={css`
             grid-area: goal;
+            margin-bottom: 25px;
+            padding: 10px;
           `}
         >
           goal: 8 hours
@@ -42,6 +47,9 @@ class App extends Component {
         <form
           className={css`
             grid-area: date;
+            background: grey;
+            margin-bottom: 25px;
+            padding: 15px;
           `}
         >
           <label> Add night: </label>
@@ -51,6 +59,9 @@ class App extends Component {
             min="2018-01-01"
             max={this.state.today}
             onClick={e => this.setToday()}
+            className={css`
+              background: #eeee;
+            `}
           />
         </form>
         <DropDown

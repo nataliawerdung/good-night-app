@@ -4,10 +4,9 @@ import styled, { css } from 'react-emotion'
 const StyledSaveButton = styled('section')`
   display: flex;
   align-items: center;
-  background: skyblue;
+  background: coral;
   border: 1px solid skyblue;
   border-radius: 4px;
-  color: white;
   grid-area: save;
 `
 
