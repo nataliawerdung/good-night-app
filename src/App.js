@@ -10,7 +10,7 @@ const grid = css`
   grid-gap: 5px;
   grid-template-rows: 50px 70px 70px 50px auto;
   grid-template-areas:
-    '. goal .'
+    '. goal goal'
     'date date date'
     'hours hours hours'
     '. save .'
@@ -26,6 +26,7 @@ class App extends Component {
     ],
     value: 8,
     message: '',
+    today: '2018-06-05',
   }
 
   render() {
@@ -44,7 +45,13 @@ class App extends Component {
           `}
         >
           <label> Add night: </label>
-          <input type="date" placeholder="chose date" />
+          <input
+            id="datefield"
+            type="date"
+            min="2018-01-01"
+            max={this.state.today}
+            onClick={e => this.setToday()}
+          />
         </form>
         <DropDown
           onChange={e => this.handleChange(e)}
@@ -74,6 +81,22 @@ class App extends Component {
       this.setState({ message: 'well done' })
     }
     this.setState({ message: 'try to go to bed early today' })
+  }
+
+  setToday() {
+    let today = new Date()
+    let dd = today.getDate()
+    let mm = today.getMonth() + 1
+    let yyyy = today.getFullYear()
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd
+    this.setState({ today: today })
   }
 }
 
