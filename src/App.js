@@ -85,8 +85,9 @@ class App extends Component {
   }
   handleChange(event) {
     const newSleepLength = { value: event.target.value }
-    //this.setState({ value: event.target.value })
+    //this.setState({ value: event.target.value }) nur für mich
     return newSleepLength
+    //hier will ich die vom User für ein Datum eingetragenene Schlafdauer greifen
   }
 
   handleSubmit(event) {
@@ -135,9 +136,13 @@ class App extends Component {
   addNewDate(event) {
     const newDate = this.value
     return newDate
+    //hier will ich das vom User eingetragene Datum greifen
   }
 
   addNewDay(id) {
+    //diese Funktion soll ein neues Array konstruieren inkl. dem "newDay" d.h. newDate plus newSleepLenght
+    //plus die ID. Ich bin nicht drauf gekommen, wie ich eine ID vergeben kann und wie ich das neue Datum
+    //ganz oben im Array eintragen kann statt in der Mitte.
     const foundQuoteIndex = this.state.days.findIndex(day => day.id === id)
     const foundQuote = this.state.days[foundQuoteIndex]
     const startOfNewArray = this.state.days.slice(0, foundQuoteIndex)
@@ -152,7 +157,7 @@ class App extends Component {
     return newDay
 
     this.setState({
-      habits: [...startOfNewArray, newObject, ...endOfNewArray],
+      days: [...startOfNewArray, newObject, ...endOfNewArray],
     })
   }
 }
