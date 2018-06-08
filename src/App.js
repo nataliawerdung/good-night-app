@@ -59,6 +59,7 @@ class App extends Component {
             min="2018-01-01"
             max={this.state.today}
             onClick={e => this.setToday()}
+            onClick={e => this.addNewDate()}
             className={css`
               background: #eeee;
             `}
@@ -68,7 +69,11 @@ class App extends Component {
           onChange={e => this.handleChange(e)}
           onSubmit={e => this.handleSubmit(e)}
         />
-        <SaveButton onClick={e => this.onCompare()} />
+        <SaveButton
+          onClick={e => this.onCompare()}
+          onClick={e => this.onSave()}
+          onClick={e => this.addNewDay()}
+        />
         <div
           className={css`
             grid-area: placeholder;
@@ -79,11 +84,28 @@ class App extends Component {
     )
   }
   handleChange(event) {
-    this.setState({ value: event.target.value })
+    const newSleepLength = { value: event.target.value }
+    //this.setState({ value: event.target.value })
+    return newSleepLength
   }
 
   handleSubmit(event) {
     event.preventDefault()
+  }
+
+  onSave(event) {
+    const storedDays = this.getDays()
+    let days
+    if (storedDays === null) {
+      days = []
+    } else {
+      days = storedDays
+    }
+    localStorage.setItem({ days: [...days], newDay })
+  }
+
+  getDays() {
+    return localStorage.getItem('days')
   }
 
   onCompare() {
@@ -108,6 +130,30 @@ class App extends Component {
 
     today = yyyy + '-' + mm + '-' + dd
     this.setState({ today: today })
+  }
+
+  addNewDate(event) {
+    const newDate = this.value
+    return newDate
+  }
+
+  addNewDay(id) {
+    const foundQuoteIndex = this.state.days.findIndex(day => day.id === id)
+    const foundQuote = this.state.days[foundQuoteIndex]
+    const startOfNewArray = this.state.days.slice(0, foundQuoteIndex)
+    const endOfNewArray = this.state.days.slice(foundQuoteIndex + 1)
+    const newObject = {
+      ...foundQuote,
+      date: newDate,
+      sleepLength: newSleepLength,
+      id: x,
+    }
+    const newDay = newObject
+    return newDay
+
+    this.setState({
+      habits: [...startOfNewArray, newObject, ...endOfNewArray],
+    })
   }
 }
 
