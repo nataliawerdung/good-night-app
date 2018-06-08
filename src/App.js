@@ -63,6 +63,7 @@ class App extends Component {
             className={css`
               background: #eeee;
             `}
+            ref={input => (this.input = input)}
           />
         </form>
         <DropDown
@@ -71,13 +72,17 @@ class App extends Component {
         />
         <SaveButton
           onClick={e => this.onCompare()}
-          onClick={e => this.onSave()}
           onClick={e => this.addNewDay()}
+          onClick={e => this.onSave()}
+          onClick={e => this.showMessage()}
         />
         <div
           className={css`
             grid-area: placeholder;
+            min-height: 100px;
+            background: lightblue;
           `}
+          id="placeholder"
         />
         <div />
       </div>
@@ -117,6 +122,11 @@ class App extends Component {
     this.setState({ message: 'try to go to bed early today' })
   }
 
+  showMessage() {
+    const placeholder = document.getElementById('placeholder')
+    placeholder.innerHTML = this.state.message
+  }
+
   setToday() {
     let today = new Date()
     let dd = today.getDate()
@@ -134,7 +144,7 @@ class App extends Component {
   }
 
   addNewDate(event) {
-    const newDate = this.value
+    const newDate = this.input.value
     return newDate
     //hier will ich das vom User eingetragene Datum greifen
   }
