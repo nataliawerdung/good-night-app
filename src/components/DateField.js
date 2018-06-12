@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { css } from 'emotion'
 import styled from 'react-emotion'
 
-const Datefield = styled('datefield')`
+const StyledDateField = styled('div')`
   grid-area: date;
   background: grey;
   margin-bottom: 25px;
@@ -11,9 +11,9 @@ const Datefield = styled('datefield')`
 
 export default class DateField extends Component {
   render() {
-    const { max, onClick, onChange, ref } = this.props
+    const { onClick, onChange } = this.props
     return (
-      <Datefield>
+      <StyledDateField>
         <label> Add night: </label>
         <input
           type="date"
@@ -26,7 +26,7 @@ export default class DateField extends Component {
             background: #eeee;
           `}
         />
-      </Datefield>
+      </StyledDateField>
     )
   }
 }

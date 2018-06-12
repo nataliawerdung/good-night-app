@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { css } from 'emotion'
 import styled from 'react-emotion'
 
 import DropDown from './components/DropDown'
@@ -13,7 +12,7 @@ const Headline = styled('h2')`
   padding: 10px;
 `
 
-const Placeholder = styled('placeholder')`
+const Placeholder = styled('div')`
   grid-area: placeholder;
   min-height: 100px;
   background: lightblue;
@@ -21,11 +20,7 @@ const Placeholder = styled('placeholder')`
 
 class App extends Component {
   state = {
-    days: [
-      { date: '2018-06-01', sleepLength: 8 },
-      { date: '2018-06-02', sleepLength: 9 },
-      { date: '2018-05-31', sleepLength: 7 },
-    ],
+    days: [],
     sleepGoal: 8,
     newSleepLength: 8,
     message: '',
@@ -40,7 +35,6 @@ class App extends Component {
           max={this.state.today}
           onClick={() => this.setMaxDay()}
           onChange={e => this.selectDay(e.target.value)}
-          ref={input => (this.input = input)}
         />
         <DropDown
           value={this.state.newSleepLength}
@@ -56,21 +50,51 @@ class App extends Component {
   }
 
   onSave() {
-    this.setState({
-      days: [
-        this.state.days,
-        {
-          date: this.state.selectedDay,
-          sleepLength: this.state.newSleepLength,
-        },
-      ],
-      selectedDay: this.state.today,
-      message: this.getMessage(),
-    })
+    this.setState(
+      {
+        days: [
+          ...this.state.days,
+          {
+            date: this.state.selectedDay,
+            sleepLength: this.state.newSleepLength,
+          },
+        ],
+        selectedDay: this.state.today,
+        message: this.getMessage(),
+      },
+      () => {
+        this.saveStateToLocalStorage()
+      }
+    )
   }
 
-  getDays() {
-    return localStorage.getItem('days')
+  saveStateToLocalStorage() {
+    localStorage.setItem('state', JSON.stringify(this.state))
+  }
+
+  componentDidMount() {
+    this.getData()
+    window.addEventListener(
+      'beforeunload',
+      this.saveStateToLocalStorage.bind(this)
+    )
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      'beforeunload',
+      this.saveStateToLocalStorage.bind(this)
+    )
+    this.saveStateToLocalStorage()
+  }
+
+  getData() {
+    let state = localStorage.getItem('state')
+    if (state) {
+      return { ...JSON.parse(state) }
+    } else {
+      return this.state
+    }
   }
 
   getMessage() {
