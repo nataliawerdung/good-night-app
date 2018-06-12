@@ -4,15 +4,18 @@ import { css } from 'emotion'
 export default class DropDown extends Component {
   get styles() {
     return css`
-      background: lightgrey;
+      background: grey;
+      margin-bottom: 25px;
+      padding: 15px;
+      grid-area: hours;
       }
     `
   }
 
   render() {
-    const { onSubmit, value, onChange } = this.props
+    const { value, onChange } = this.props
     return (
-      <form onSubmit={onSubmit} className={this.styles}>
+      <div className={this.styles}>
         <label>
           Add hours:
           <select value={value} onChange={onChange}>
@@ -24,10 +27,12 @@ export default class DropDown extends Component {
             <option value="10">10</option>
             <option value="11">11</option>
             <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
           </select>
         </label>
-        <input type="submit" value="Submit" />
-      </form>
+      </div>
     )
   }
 }

@@ -1,89 +1,132 @@
 import React, { Component } from 'react'
-import { css } from 'emotion'
+import styled from 'react-emotion'
 
 import DropDown from './components/DropDown'
 import SaveButton from './components/SaveButton'
+import DateField from './components/DateField'
+import Grid from './components/Grid'
 
-const grid = css`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 5px;
-  grid-template-rows: 50px 70px 70px 50px auto;
-  grid-template-areas:
-    '. goal .'
-    'date date date'
-    'hours hours hours'
-    '. save .'
-    'placeholder placeholder placeholder';
-  width: 240px;
+const Headline = styled('h2')`
+  grid-area: goal;
+  margin-bottom: 25px;
+  padding: 10px;
+`
+
+const Placeholder = styled('div')`
+  grid-area: placeholder;
+  min-height: 100px;
+  background: lightblue;
 `
 
 class App extends Component {
   state = {
-    days: [
-      { date: '2018-06-01', sleeplength: 8, id: 0 },
-      { date: '2018-06-01', sleeplength: 9, id: 1 },
-      { date: '2018-05-31', sleeplength: 7, id: 2 },
-    ],
-    value: 8,
+    days: [],
+    sleepGoal: 8,
+    newSleepLength: 8,
+    message: '',
+    today: this.getToday(),
   }
 
   render() {
     return (
-      <div className={grid}>
-        <h2
-          className={css`
-            grid-area: goal;
-          `}
-        >
-          {' '}
-          goal: 8 hours{' '}
-        </h2>
-        <form
-          className={css`
-            grid-area: date;
-          `}
-        >
-          <label> Add night: </label>
-          <input type="date" placeholder="chose date" />
-        </form>
+      <Grid>
+        <Headline>goal: 8 hours</Headline>
+        <DateField
+          max={this.state.today}
+          onClick={() => this.setMaxDay()}
+          onChange={e => this.selectDay(e.target.value)}
+        />
         <DropDown
-          onChange={e => this.props.handleChange()}
-          onSubmit={e => this.props.handleSubmit()}
-          className={css`
-            grid-area: hours;
-          `}
+          value={this.state.newSleepLength}
+          onChange={e => this.handleChange(e)}
         />
-        <SaveButton
-          onClick={e => this.props.onCompare()}
-          className={css`
-            grid-area: save;
-          `}
-        />
-        <div
-          className={css`
-            grid-area: placeholder;
-          `}
-        />
-        <div />
-      </div>
+        <SaveButton onClick={() => this.onSave()} />
+        <Placeholder>{this.state.message}</Placeholder>
+      </Grid>
+    )
+  }
+  handleChange(event) {
+    this.setState({ newSleepLength: event.target.value })
+  }
+
+  onSave() {
+    this.setState(
+      {
+        days: [
+          ...this.state.days,
+          {
+            date: this.state.selectedDay,
+            sleepLength: this.state.newSleepLength,
+          },
+        ],
+        selectedDay: this.state.today,
+        message: this.getMessage(),
+      },
+      () => {
+        this.saveStateToLocalStorage()
+      }
     )
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value })
+  saveStateToLocalStorage() {
+    localStorage.setItem('state', JSON.stringify(this.state))
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
+  componentDidMount() {
+    this.getData()
+    window.addEventListener(
+      'beforeunload',
+      this.saveStateToLocalStorage.bind(this)
+    )
   }
 
-  onCompare() {
-    const hours = this.state.value
-    if (hours >= 8) {
+  componentWillUnmount() {
+    window.removeEventListener(
+      'beforeunload',
+      this.saveStateToLocalStorage.bind(this)
+    )
+    this.saveStateToLocalStorage()
+  }
+
+  getData() {
+    let state = localStorage.getItem('state')
+    if (state) {
+      return { ...JSON.parse(state) }
+    } else {
+      return this.state
+    }
+  }
+
+  getMessage() {
+    const goal = this.state.sleepGoal
+    const hours = this.state.newSleepLength
+    if (hours >= goal) {
       return 'well done'
     }
     return 'try to go to bed early today'
+  }
+
+  setMaxDay() {
+    this.setState({ today: this.getToday() })
+  }
+
+  getToday() {
+    let today = new Date()
+    let dd = today.getDate()
+    let mm = today.getMonth() + 1
+    let yyyy = today.getFullYear()
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+
+    return yyyy + '-' + mm + '-' + dd
+  }
+
+  selectDay(value) {
+    this.setState({ selectedDay: value })
   }
 }
 

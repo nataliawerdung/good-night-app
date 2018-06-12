@@ -1,22 +1,20 @@
 import React, { Component } from 'react'
-import styled, { css } from 'react-emotion'
+import styled from 'react-emotion'
 
 const StyledSaveButton = styled('section')`
   display: flex;
   align-items: center;
-  height: 40px;
-  width: 60px;
-  background: skyblue;
+  background: coral;
   border: 1px solid skyblue;
   border-radius: 4px;
-  color: white;
+  grid-area: save;
 `
 
 export default class SaveButton extends Component {
   render() {
     return (
       <StyledSaveButton>
-        <button onClick={this.props.onClick} /> <span>save</span>
+        <button onClick={this.props.onClick}>save</button>
       </StyledSaveButton>
     )
   }
