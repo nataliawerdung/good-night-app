@@ -14,7 +14,7 @@ export default class SaveButton extends Component {
   render() {
     return (
       <StyledSaveButton>
-        <button onClick={this.props.onClick} /> <span>save</span>
+        <button onClick={this.props.onClick}>save</button>
       </StyledSaveButton>
     )
   }
