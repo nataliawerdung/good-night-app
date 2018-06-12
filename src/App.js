@@ -4,12 +4,19 @@ import styled from 'react-emotion'
 
 import DropDown from './components/DropDown'
 import SaveButton from './components/SaveButton'
+import DateField from './components/DateField'
 import Grid from './components/Grid'
 
 const Headline = styled('h2')`
   grid-area: goal;
   margin-bottom: 25px;
   padding: 10px;
+`
+
+const Placeholder = styled('placeholder')`
+  grid-area: placeholder;
+  min-height: 100px;
+  background: lightblue;
 `
 
 class App extends Component {
@@ -29,42 +36,18 @@ class App extends Component {
     return (
       <Grid>
         <Headline>goal: 8 hours</Headline>
-        <div
-          className={css`
-            grid-area: date;
-            background: grey;
-            margin-bottom: 25px;
-            padding: 15px;
-          `}
-        >
-          <label> Add night: </label>
-          <input
-            id="datefield"
-            type="date"
-            min="2018-01-01"
-            max={this.state.today}
-            onClick={() => this.setMaxDay()}
-            onChange={e => this.selectDay(e.target.value)}
-            className={css`
-              background: #eeee;
-            `}
-            ref={input => (this.input = input)}
-          />
-        </div>
+        <DateField
+          max={this.state.today}
+          onClick={() => this.setMaxDay()}
+          onChange={e => this.selectDay(e.target.value)}
+          ref={input => (this.input = input)}
+        />
         <DropDown
           value={this.state.newSleepLength}
           onChange={e => this.handleChange(e)}
         />
         <SaveButton onClick={() => this.onSave()} />
-        <div
-          className={css`
-            grid-area: placeholder;
-            min-height: 100px;
-            background: lightblue;
-          `}
-        >
-          {this.state.message}
-        </div>
+        <Placeholder>{this.state.message}</Placeholder>
       </Grid>
     )
   }
