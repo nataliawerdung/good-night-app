@@ -4,6 +4,7 @@ import styled from 'react-emotion'
 import DropDown from './components/DropDown'
 import SaveButton from './components/SaveButton'
 import DateField from './components/DateField'
+import Animation from './components/Animation'
 import Grid from './components/Grid'
 
 const Headline = styled('h2')`
@@ -11,11 +12,15 @@ const Headline = styled('h2')`
   margin-bottom: 25px;
   padding: 10px;
 `
-
 const Placeholder = styled('div')`
   grid-area: placeholder;
   min-height: 100px;
-  background: lightblue;
+  background: steelblue;
+`
+const Span = styled('div')`
+  font-size: 30px;
+  color: whitesmoke;
+  margin-left: 10px;
 `
 
 class App extends Component {
@@ -101,9 +106,9 @@ class App extends Component {
     const goal = this.state.sleepGoal
     const hours = this.state.newSleepLength
     if (hours >= goal) {
-      return 'well done'
+      return <Animation message={'Well done!'} />
     }
-    return 'try to go to bed early today'
+    return <Span>Try to go to bed early today</Span>
   }
 
   setMaxDay() {

@@ -4,7 +4,7 @@ import styled from 'react-emotion'
 
 const StyledDateField = styled('div')`
   grid-area: date;
-  background: grey;
+  background: lightblue;
   margin-bottom: 25px;
   padding: 15px;
 `

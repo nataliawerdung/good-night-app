@@ -1,0 +1,103 @@
+.placeholder {
+  position: relative;
+  width: 100vw;
+  height: 400px;
+  background: steelblue;
+}
+
+.moon {
+  background: orange;
+  box-shadow: 5px 3px 3px rgb(238, 166, 10);
+  margin: 15px;
+  animation: moon 8s infinite;
+  width: 30vw;
+  height: 15vw;
+  border-radius: 200px 200px 0 0;
+  transform-origin: bottom center;
+  transform: rotate(265deg);
+  position: absolute;
+  top: 17vw;
+  left: 5vw;
+  bottom: 3vw;
+}
+
+@keyframes moon {
+  0% {
+  }
+  50% {
+    box-shadow: 10px 5px 8px rgb(230, 207, 9);
+    transform: scale(1.1) rotate(265deg);
+  }
+  100% {
+  }
+}
+
+.text {
+  position: absolute;
+  right: 20vw;
+  left: 20vw;
+  top: 5vw;
+  font-size: 35px;
+  color: whitesmoke;
+  margin-left: 5px;
+}
+
+.star {
+  margin-top: 10px;
+  transform: scale(0.7);
+  width: 0;
+  height: 0;
+  border-left: 7vw solid transparent;
+  border-right: 7vw solid transparent;
+  border-bottom: 14vw solid #ffc800;
+  position: relative;
+}
+
+.star:after {
+  width: 0;
+  height: 0;
+  border-left: 7vw solid transparent;
+  border-right: 7vw solid transparent;
+  border-top: 14vw solid #ffc800;
+  position: absolute;
+  content: '';
+  top: 4vw;
+  left: -7vw;
+}
+
+.star1 {
+  animation: star1 7s infinite;
+  animation-delay: 1s;
+  position: absolute;
+  top: 15vw;
+  left: 65vw;
+}
+
+@keyframes star1 {
+  0% {
+  }
+  50% {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  100% {
+  }
+}
+
+.star2 {
+  animation: star2 2s infinite;
+  position: absolute;
+  top: 30vw;
+  left: 40vw;
+}
+
+@keyframes star2 {
+  0% {
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.7);
+  }
+  100% {
+  }
+}
