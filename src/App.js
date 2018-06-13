@@ -15,11 +15,12 @@ const Headline = styled('h2')`
 const Placeholder = styled('div')`
   grid-area: placeholder;
   min-height: 100px;
-  background: lightblue;
+  background: steelblue;
 `
 const Span = styled('div')`
   font-size: 30px;
   color: whitesmoke;
+  margin-left: 10px;
 `
 
 class App extends Component {

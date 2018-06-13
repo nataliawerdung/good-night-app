@@ -4,7 +4,7 @@ import { css } from 'emotion'
 export default class DropDown extends Component {
   get styles() {
     return css`
-      background: grey;
+      background: lightblue;
       margin-bottom: 25px;
       padding: 15px;
       grid-area: hours;

@@ -2,7 +2,6 @@
   position: relative;
   width: 100vw;
   height: 400px;
-  border: 3px solid #73ad21;
   background: steelblue;
 }
 
@@ -40,6 +39,7 @@
   top: 5vw;
   font-size: 35px;
   color: whitesmoke;
+  margin-left: 5px;
 }
 
 .star {
