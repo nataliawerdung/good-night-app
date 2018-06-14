@@ -1,27 +1,9 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import styled from 'react-emotion'
 
-import DropDown from './components/DropDown'
-import SaveButton from './components/SaveButton'
-import DateField from './components/DateField'
-import Animation from './components/Animation'
-import Grid from './components/Grid'
-
-const Headline = styled('h2')`
-  grid-area: goal;
-  margin-bottom: 25px;
-  padding: 10px;
-`
-const Placeholder = styled('div')`
-  grid-area: placeholder;
-  min-height: 100px;
-  background: steelblue;
-`
-const Span = styled('div')`
-  font-size: 30px;
-  color: whitesmoke;
-  margin-left: 10px;
-`
+import StartPage from './components/StartPage'
+import Settings from './components/Settings'
 
 class App extends Component {
   state = {
@@ -30,89 +12,6 @@ class App extends Component {
     newSleepLength: 8,
     message: '',
     today: this.getToday(),
-  }
-
-  render() {
-    return (
-      <Grid>
-        <Headline>goal: 8 hours</Headline>
-        <DateField
-          max={this.state.today}
-          onClick={() => this.setMaxDay()}
-          onChange={e => this.selectDay(e.target.value)}
-        />
-        <DropDown
-          value={this.state.newSleepLength}
-          onChange={e => this.handleChange(e)}
-        />
-        <SaveButton onClick={() => this.onSave()} />
-        <Placeholder>{this.state.message}</Placeholder>
-      </Grid>
-    )
-  }
-  handleChange(event) {
-    this.setState({ newSleepLength: event.target.value })
-  }
-
-  onSave() {
-    this.setState(
-      {
-        days: [
-          ...this.state.days,
-          {
-            date: this.state.selectedDay,
-            sleepLength: this.state.newSleepLength,
-          },
-        ],
-        selectedDay: this.state.today,
-        message: this.getMessage(),
-      },
-      () => {
-        this.saveStateToLocalStorage()
-      }
-    )
-  }
-
-  saveStateToLocalStorage() {
-    localStorage.setItem('state', JSON.stringify(this.state))
-  }
-
-  componentDidMount() {
-    this.getData()
-    window.addEventListener(
-      'beforeunload',
-      this.saveStateToLocalStorage.bind(this)
-    )
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener(
-      'beforeunload',
-      this.saveStateToLocalStorage.bind(this)
-    )
-    this.saveStateToLocalStorage()
-  }
-
-  getData() {
-    let state = localStorage.getItem('state')
-    if (state) {
-      return { ...JSON.parse(state) }
-    } else {
-      return this.state
-    }
-  }
-
-  getMessage() {
-    const goal = this.state.sleepGoal
-    const hours = this.state.newSleepLength
-    if (hours >= goal) {
-      return <Animation message={'Well done!'} />
-    }
-    return <Span>Try to go to bed early today</Span>
-  }
-
-  setMaxDay() {
-    this.setState({ today: this.getToday() })
   }
 
   getToday() {
@@ -130,9 +29,23 @@ class App extends Component {
     return yyyy + '-' + mm + '-' + dd
   }
 
-  selectDay(value) {
-    this.setState({ selectedDay: value })
+  render() {
+    return (
+      <Router>
+        <section>
+          <Route
+            exact
+            path="/"
+            render={() => <StartPage state={this.state} />}
+          />
+          <Route path="/settings" component={Settings} />
+          <div>
+            <Link to="/">StartPage</Link>
+            <Link to="/settings">Settings</Link>
+          </div>
+        </section>
+      </Router>
+    )
   }
 }
-
 export default App
