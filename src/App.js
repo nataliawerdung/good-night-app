@@ -3,7 +3,14 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import styled from 'react-emotion'
 
 import StartPage from './components/StartPage'
-import Settings from './components/Settings'
+import SettingsPage from './components/SettingsPage'
+import Animation from './components/Animation'
+
+const Span = styled('div')`
+  font-size: 30px;
+  color: whitesmoke;
+  margin-left: 10px;
+`
 
 class App extends Component {
   state = {
@@ -29,6 +36,73 @@ class App extends Component {
     return yyyy + '-' + mm + '-' + dd
   }
 
+  setMaxDay = () => {
+    this.setState({ today: this.getToday() })
+  }
+
+  handleChange = event => {
+    this.setState({ newSleepLength: event.target.value })
+  }
+
+  selectDay = value => {
+    this.setState({ selectedDay: value })
+  }
+
+  onSave = () => {
+    this.setState(
+      {
+        days: [
+          ...this.state.days,
+          {
+            date: this.state.selectedDay,
+            sleepLength: this.state.newSleepLength,
+          },
+        ],
+        selectedDay: this.state.today,
+        message: this.getMessage(),
+      },
+      () => {
+        this.saveStateToLocalStorage()
+      }
+    )
+  }
+  getMessage() {
+    const goal = this.state.sleepGoal
+    const hours = this.state.newSleepLength
+    if (hours >= goal) {
+      return <Animation message={'Well done!'} />
+    }
+    return <Span>Try to go to bed early today</Span>
+  }
+  saveStateToLocalStorage() {
+    localStorage.setItem('state', JSON.stringify(this.state))
+  }
+
+  componentDidMount() {
+    this.getData()
+    window.addEventListener(
+      'beforeunload',
+      this.saveStateToLocalStorage.bind(this)
+    )
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      'beforeunload',
+      this.saveStateToLocalStorage.bind(this)
+    )
+    this.saveStateToLocalStorage()
+  }
+
+  getData() {
+    let state = localStorage.getItem('state')
+    if (state) {
+      return { ...JSON.parse(state) }
+    } else {
+      return this.state
+    }
+  }
+
   render() {
     return (
       <Router>
@@ -36,11 +110,22 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={() => <StartPage state={this.state} />}
+            render={() => (
+              <StartPage
+                state={this.state}
+                setMaxDay={this.setMaxDay}
+                handleChange={this.handleChange}
+                selectDay={this.selectDay}
+                onSave={this.onSave}
+              />
+            )}
           />
-          <Route path="/settings" component={Settings} />
+          <Route
+            exact
+            path="/settings"
+            render={() => <SettingsPage state={this.state} />}
+          />
           <div>
-            <Link to="/">StartPage</Link>
             <Link to="/settings">Settings</Link>
           </div>
         </section>
