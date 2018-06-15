@@ -125,7 +125,6 @@ class App extends Component {
             )}
           />
           <Route
-            exact
             path="/settings"
             render={() => <SettingsPage state={this.state} />}
           />
