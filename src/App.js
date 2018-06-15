@@ -1,22 +1,11 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import styled from 'react-emotion'
 
-import DropDown from './components/DropDown'
-import SaveButton from './components/SaveButton'
-import DateField from './components/DateField'
+import StartPage from './components/StartPage'
+import SettingsPage from './components/SettingsPage'
 import Animation from './components/Animation'
-import Grid from './components/Grid'
 
-const Headline = styled('h2')`
-  grid-area: goal;
-  margin-bottom: 25px;
-  padding: 10px;
-`
-const Placeholder = styled('div')`
-  grid-area: placeholder;
-  min-height: 100px;
-  background: steelblue;
-`
 const Span = styled('div')`
   font-size: 30px;
   color: whitesmoke;
@@ -32,29 +21,34 @@ class App extends Component {
     today: this.getToday(),
   }
 
-  render() {
-    return (
-      <Grid>
-        <Headline>goal: 8 hours</Headline>
-        <DateField
-          max={this.state.today}
-          onClick={() => this.setMaxDay()}
-          onChange={e => this.selectDay(e.target.value)}
-        />
-        <DropDown
-          value={this.state.newSleepLength}
-          onChange={e => this.handleChange(e)}
-        />
-        <SaveButton onClick={() => this.onSave()} />
-        <Placeholder>{this.state.message}</Placeholder>
-      </Grid>
-    )
+  getToday() {
+    let today = new Date()
+    let dd = today.getDate()
+    let mm = today.getMonth() + 1
+    let yyyy = today.getFullYear()
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+
+    return yyyy + '-' + mm + '-' + dd
   }
-  handleChange(event) {
+
+  setMaxDay = () => {
+    this.setState({ today: this.getToday() })
+  }
+
+  handleChange = event => {
     this.setState({ newSleepLength: event.target.value })
   }
 
-  onSave() {
+  selectDay = value => {
+    this.setState({ selectedDay: value })
+  }
+
+  onSave = () => {
     this.setState(
       {
         days: [
@@ -72,7 +66,14 @@ class App extends Component {
       }
     )
   }
-
+  getMessage() {
+    const goal = this.state.sleepGoal
+    const hours = this.state.newSleepLength
+    if (hours >= goal) {
+      return <Animation message={'Well done!'} />
+    }
+    return <Span>Try to go to bed early today</Span>
+  }
   saveStateToLocalStorage() {
     localStorage.setItem('state', JSON.stringify(this.state))
   }
@@ -102,37 +103,42 @@ class App extends Component {
     }
   }
 
-  getMessage() {
-    const goal = this.state.sleepGoal
-    const hours = this.state.newSleepLength
-    if (hours >= goal) {
-      return <Animation message={'Well done!'} />
-    }
-    return <Span>Try to go to bed early today</Span>
+  setSleepGoal = newSleepGoal => {
+    this.setState({ sleepGoal: newSleepGoal })
   }
 
-  setMaxDay() {
-    this.setState({ today: this.getToday() })
-  }
-
-  getToday() {
-    let today = new Date()
-    let dd = today.getDate()
-    let mm = today.getMonth() + 1
-    let yyyy = today.getFullYear()
-    if (dd < 10) {
-      dd = '0' + dd
-    }
-    if (mm < 10) {
-      mm = '0' + mm
-    }
-
-    return yyyy + '-' + mm + '-' + dd
-  }
-
-  selectDay(value) {
-    this.setState({ selectedDay: value })
+  render() {
+    return (
+      <Router>
+        <section>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <React.Fragment>
+                <StartPage
+                  state={this.state}
+                  setMaxDay={this.setMaxDay}
+                  handleChange={this.handleChange}
+                  selectDay={this.selectDay}
+                  onSave={this.onSave}
+                />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            path="/settings"
+            render={() => (
+              <SettingsPage
+                state={this.state}
+                getSleepGoal={this.getSleepGoal}
+                setSleepGoal={this.setSleepGoal}
+              />
+            )}
+          />
+        </section>
+      </Router>
+    )
   }
 }
-
 export default App

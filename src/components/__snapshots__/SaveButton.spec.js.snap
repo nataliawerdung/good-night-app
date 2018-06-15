@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveButton has a matching snapshot 1`] = `
+<Styled(section)>
+  <button
+    onClick={[Function]}
+  >
+    save
+  </button>
+</Styled(section)>
+`;
