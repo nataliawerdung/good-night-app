@@ -5,6 +5,7 @@ import DropDown from './DropDown'
 import SaveButton from './SaveButton'
 import DateField from './DateField'
 import Grid from './Grid'
+import NavButton from './NavButton'
 
 const Headline = styled('h2')`
   grid-area: goal;
@@ -33,6 +34,7 @@ export default class StartPage extends Component {
         />
         <SaveButton onClick={this.props.onSave} />
         <Placeholder>{this.props.state.message}</Placeholder>
+        <NavButton />
       </Grid>
     )
   }

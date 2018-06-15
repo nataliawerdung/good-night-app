@@ -5,7 +5,6 @@ import styled from 'react-emotion'
 import StartPage from './components/StartPage'
 import SettingsPage from './components/SettingsPage'
 import Animation from './components/Animation'
-import NavButton from './components/NavButton'
 
 const Span = styled('div')`
   font-size: 30px;
@@ -16,7 +15,7 @@ const Span = styled('div')`
 class App extends Component {
   state = {
     days: [],
-    sleepGoal: null,
+    sleepGoal: 8,
     newSleepLength: 8,
     message: '',
     today: this.getToday(),
@@ -124,7 +123,6 @@ class App extends Component {
                   selectDay={this.selectDay}
                   onSave={this.onSave}
                 />
-                <NavButton />
               </React.Fragment>
             )}
           />

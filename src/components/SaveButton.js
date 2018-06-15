@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'react-emotion'
 
-const StyledSaveButton = styled('section')`
+const StyledSaveButton = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;

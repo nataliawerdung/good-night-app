@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import styled from 'react-emotion'
 import { Link } from 'react-router-dom'
 
+const StyledDiv = styled('div')`
+  grid-area: nav;
+`
 const Button = styled('button')`
   display: flex;
   align-items: center;
@@ -23,13 +26,13 @@ const Span = styled('div')`
 export default class NavButton extends Component {
   render() {
     return (
-      <React.Fragment>
+      <StyledDiv>
         <Button>
           <Link to="/settings">
             <Span>settings</Span>
           </Link>
         </Button>
-      </React.Fragment>
+      </StyledDiv>
     )
   }
 }

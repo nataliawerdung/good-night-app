@@ -12,6 +12,7 @@ const Button = styled('button')`
   height: 70px;
   width: 70px;
   border: none;
+  grid-area: home;
 `
 const MoonImage = styled('div')`
   background: yellow;
