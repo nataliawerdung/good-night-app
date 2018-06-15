@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'react-emotion'
+import { Link } from 'react-router-dom'
 
 const Button = styled('button')`
   display: flex;
@@ -26,9 +27,9 @@ export default class HomeButton extends Component {
     return (
       <React.Fragment>
         <Button>
-          <a href="/">
+          <Link to="/">
             <MoonImage />
-          </a>
+          </Link>
         </Button>
       </React.Fragment>
     )

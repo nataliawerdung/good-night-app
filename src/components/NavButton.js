@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'react-emotion'
+import { Link } from 'react-router-dom'
 
 const Button = styled('button')`
   display: flex;
@@ -24,9 +25,9 @@ export default class NavButton extends Component {
     return (
       <React.Fragment>
         <Button>
-          <a href="/settings">
+          <Link to="/settings">
             <Span>settings</Span>
-          </a>
+          </Link>
         </Button>
       </React.Fragment>
     )

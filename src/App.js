@@ -16,7 +16,7 @@ const Span = styled('div')`
 class App extends Component {
   state = {
     days: [],
-    sleepGoal: 8,
+    sleepGoal: null,
     newSleepLength: 8,
     message: '',
     today: this.getToday(),
@@ -104,6 +104,10 @@ class App extends Component {
     }
   }
 
+  setSleepGoal = newSleepGoal => {
+    this.setState({ sleepGoal: newSleepGoal })
+  }
+
   render() {
     return (
       <Router>
@@ -126,7 +130,13 @@ class App extends Component {
           />
           <Route
             path="/settings"
-            render={() => <SettingsPage state={this.state} />}
+            render={() => (
+              <SettingsPage
+                state={this.state}
+                getSleepGoal={this.getSleepGoal}
+                setSleepGoal={this.setSleepGoal}
+              />
+            )}
           />
         </section>
       </Router>

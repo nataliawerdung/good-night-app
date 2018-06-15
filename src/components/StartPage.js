@@ -21,7 +21,7 @@ export default class StartPage extends Component {
   render() {
     return (
       <Grid>
-        <Headline>goal: 8 hours</Headline>
+        <Headline>goal: {this.props.state.sleepGoal}</Headline>
         <DateField
           max={this.props.state.today}
           onClick={this.props.setMaxDay}
