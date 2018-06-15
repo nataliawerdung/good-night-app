@@ -6,26 +6,28 @@ const Button = styled('button')`
   align-items: center;
   justify-content: center;
   margin: 10px;
-  background: grey;
+  background: blue;
   border-radius: 50%;
   height: 70px;
   width: 70px;
   border: none;
 `
-const Span = styled('div')`
-  font-size: 18px;
-  color: whitesmoke;
-  margin: 5px;
-  text-decoration: none;
+const MoonImage = styled('div')`
+  background: yellow;
+  width: 40px;
+  height: 20px;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(270deg);
+  margin-right: 10px;
 `
 
-export default class NavButton extends Component {
+export default class HomeButton extends Component {
   render() {
     return (
       <React.Fragment>
         <Button>
-          <a href="/settings">
-            <Span>settings</Span>
+          <a href="/">
+            <MoonImage />
           </a>
         </Button>
       </React.Fragment>
