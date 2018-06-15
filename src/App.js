@@ -5,6 +5,7 @@ import styled from 'react-emotion'
 import StartPage from './components/StartPage'
 import SettingsPage from './components/SettingsPage'
 import Animation from './components/Animation'
+import NavButton from './components/NavButton'
 
 const Span = styled('div')`
   font-size: 30px;
@@ -125,9 +126,7 @@ class App extends Component {
             path="/settings"
             render={() => <SettingsPage state={this.state} />}
           />
-          <div>
-            <Link to="/settings">Settings</Link>
-          </div>
+          <NavButton />
         </section>
       </Router>
     )

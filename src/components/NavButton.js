@@ -1,30 +1,33 @@
 import React, { Component } from 'react'
 import styled from 'react-emotion'
 
-const StyledSaveButton = styled('section')`
+const Button = styled('button')`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: coral;
-  grid-area: save;
+  margin: 10px;
+  background: teal;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  height: 70px;
+  width: 70px;
 `
 const Span = styled('div')`
   font-size: 18px;
   color: whitesmoke;
   margin: 5px;
   text-decoration: none;
-  font-weight: normal;
 `
 
-export default class SaveButton extends Component {
+export default class NavButton extends Component {
   render() {
     return (
-      <StyledSaveButton onClick={this.props.onClick}>
-        <Span>save</Span>
-      </StyledSaveButton>
+      <React.Fragment>
+        <Button>
+          <a href="/settings">
+            <Span>settings</Span>
+          </a>
+        </Button>
+      </React.Fragment>
     )
   }
 }
