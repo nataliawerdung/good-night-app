@@ -112,13 +112,16 @@ class App extends Component {
             exact
             path="/"
             render={() => (
-              <StartPage
-                state={this.state}
-                setMaxDay={this.setMaxDay}
-                handleChange={this.handleChange}
-                selectDay={this.selectDay}
-                onSave={this.onSave}
-              />
+              <React.Fragment>
+                <StartPage
+                  state={this.state}
+                  setMaxDay={this.setMaxDay}
+                  handleChange={this.handleChange}
+                  selectDay={this.selectDay}
+                  onSave={this.onSave}
+                />
+                <NavButton />
+              </React.Fragment>
             )}
           />
           <Route
@@ -126,7 +129,6 @@ class App extends Component {
             path="/settings"
             render={() => <SettingsPage state={this.state} />}
           />
-          <NavButton />
         </section>
       </Router>
     )
