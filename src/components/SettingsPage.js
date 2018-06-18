@@ -8,20 +8,22 @@ import HomeButton from './HomeButton'
 const Grid = styled('div')`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 5px;
-  grid-template-rows: 1fr 1fr 1fr auto;
+  grid-gap: 2px;
+  grid-template-rows: 1fr 1fr 1fr 3fr;
   grid-template-areas:
     'home . .'
     'hours hours hours'
     '. save .'
     'empty empty empty';
-  background: steelblue;
-  color: white;
+  background: rgb(133, 172, 249);
+  color: rgb(29, 54, 73);
   font-size: 20px;
+  transition: transform 1s;
 `
 
 const Empty = styled('div')`
   grid-area: empty;
+  background: rgb(133, 172, 249);
 `
 
 export default class SettingsPage extends Component {
@@ -38,7 +40,7 @@ export default class SettingsPage extends Component {
     return (
       <Grid>
         <HomeButton />
-        <DropDown onChange={this.getSleepGoal} />
+        <DropDown onChange={this.getSleepGoal} text="Set sleep goal:" />
         <SaveButton
           onClick={e => this.props.setSleepGoal(this.state.sleepGoal)}
         />

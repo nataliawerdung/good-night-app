@@ -7,8 +7,8 @@ import SettingsPage from './components/SettingsPage'
 import Animation from './components/Animation'
 
 const Span = styled('div')`
-  font-size: 30px;
-  color: whitesmoke;
+  font-size: 20px;
+  color: rgb(29, 54, 73);
   margin-left: 10px;
 `
 

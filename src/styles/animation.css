@@ -1,12 +1,12 @@
 .placeholder {
   position: relative;
   width: 100%;
-  background: steelblue;
+  background: rgb(133, 172, 249);
 }
 
 .moon {
-  background: orange;
-  box-shadow: 5px 3px 3px rgb(238, 166, 10);
+  background: rgb(242, 215, 73);
+  box-shadow: 5px 3px 3px rgb(242, 215, 73);
   margin: 15px;
   animation: moon 8s infinite;
   width: 30vw;
@@ -36,19 +36,19 @@
   right: 20vw;
   left: 20vw;
   top: 5vw;
-  font-size: 35px;
-  color: whitesmoke;
+  font-size: 30px;
+  color: rgb(29, 54, 73);
   margin-left: 5px;
 }
 
 .star {
   margin-top: 10px;
-  transform: scale(0.7);
+  transform: scale(0.9);
   width: 0;
   height: 0;
   border-left: 7vw solid transparent;
   border-right: 7vw solid transparent;
-  border-bottom: 14vw solid #ffc800;
+  border-bottom: 14vw solid rgb(242, 215, 73);
   position: relative;
 }
 
@@ -57,7 +57,7 @@
   height: 0;
   border-left: 7vw solid transparent;
   border-right: 7vw solid transparent;
-  border-top: 14vw solid #ffc800;
+  border-top: 14vw solid rgb(242, 215, 73);
   position: absolute;
   content: '';
   top: 4vw;

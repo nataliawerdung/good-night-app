@@ -4,7 +4,7 @@ import { css } from 'emotion'
 export default class DropDown extends Component {
   get styles() {
     return css`
-      background: lightblue;
+      background: rgb(133, 172, 249);
       margin-bottom: 25px;
       padding: 15px;
       grid-area: hours;
@@ -13,11 +13,11 @@ export default class DropDown extends Component {
   }
 
   render() {
-    const { value, onChange } = this.props
+    const { value, onChange, text } = this.props
     return (
       <div className={this.styles}>
         <label>
-          Add hours:
+          {text}
           <select value={value} onChange={onChange}>
             <option value="5">5</option>
             <option value="6">6</option>

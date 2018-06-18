@@ -9,16 +9,21 @@ const Button = styled('button')`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px;
-  background: grey;
+  margin: 15px;
+  background: whitesmoke;
   border-radius: 50%;
-  height: 70px;
-  width: 70px;
+  height: 65px;
+  width: 65px;
   border: none;
+
+  :hover,
+  :active {
+    transform: scale(1);
+  }
 `
 const Span = styled('div')`
   font-size: 18px;
-  color: whitesmoke;
+  color: rgb(29, 54, 73);
   margin: 5px;
   text-decoration: none;
 `
