@@ -9,11 +9,10 @@ import NavButton from './NavButton'
 
 const Headline = styled('h2')`
   grid-area: goal;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px;
   padding: 5px;
-  border-bottom: 2px solid rgb(28, 53, 72);
   width: 200px;
-  padding: 10px;
 `
 const Placeholder = styled('div')`
   grid-area: placeholder;
@@ -33,7 +32,7 @@ export default class StartPage extends Component {
         <DropDown
           value={this.props.state.newSleepLength}
           onChange={this.props.handleChange}
-          text="Add hours:"
+          text="How long did you sleep?"
         />
         <SaveButton onClick={this.props.onSave} />
         <Placeholder>{this.props.state.message}</Placeholder>

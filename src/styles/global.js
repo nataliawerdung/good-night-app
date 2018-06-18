@@ -11,5 +11,6 @@ export default function globalStyles() {
     height: 100vh;
     overflow: hidden;
     cursor: pointer;
+    font-family: 'Cabin Sketch', cursive;
   }`
 }

@@ -13,10 +13,10 @@ const Button = styled('button')`
   width: 70px;
   border: none;
   grid-area: home;
+  transition: all 0.4s ease;
 
-  :hover,
-  :active & {
-    transform: scale(1);
+  &:hover {
+    transform: scale(1.1);
   }
 `
 const MoonImage = styled('div')`

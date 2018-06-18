@@ -18,7 +18,6 @@ const Grid = styled('div')`
   background: rgb(133, 172, 249);
   color: rgb(29, 54, 73);
   font-size: 20px;
-  transition: transform 1s;
 `
 
 const Empty = styled('div')`
