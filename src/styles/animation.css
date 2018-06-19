@@ -20,6 +20,25 @@
   bottom: 3vw;
 }
 
+@media (min-width: 768px) {
+  .moon {
+    top: 4vw;
+    left: 1vw;
+  }
+  .text {
+    top: 1vw;
+    left: 40vw;
+  }
+  .star1 {
+    top: 2vw;
+    left: 65vw;
+  }
+  .star2 {
+    top: 12vw;
+    left: 40vw;
+  }
+}
+
 @keyframes moon {
   0% {
   }
