@@ -9,20 +9,21 @@ import NavButton from './NavButton'
 
 const Headline = styled('h2')`
   grid-area: goal;
-  margin-bottom: 25px;
-  padding: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  padding: 5px;
+  width: 200px;
 `
 const Placeholder = styled('div')`
   grid-area: placeholder;
-  min-height: 100px;
-  background: steelblue;
+  background: rgb(133, 172, 249);
 `
 
 export default class StartPage extends Component {
   render() {
     return (
       <Grid>
-        <Headline>goal: {this.props.state.sleepGoal}</Headline>
+        <Headline>goal: {this.props.state.sleepGoal} hours</Headline>
         <DateField
           max={this.props.state.today}
           onClick={this.props.setMaxDay}
@@ -31,6 +32,7 @@ export default class StartPage extends Component {
         <DropDown
           value={this.props.state.newSleepLength}
           onChange={this.props.handleChange}
+          text="How long did you sleep?"
         />
         <SaveButton onClick={this.props.onSave} />
         <Placeholder>{this.props.state.message}</Placeholder>

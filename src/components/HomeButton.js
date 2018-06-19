@@ -7,15 +7,20 @@ const Button = styled('button')`
   align-items: center;
   justify-content: center;
   margin: 10px;
-  background: blue;
+  background: rgb(28, 53, 72);
   border-radius: 50%;
   height: 70px;
   width: 70px;
   border: none;
   grid-area: home;
+  transition: all 0.4s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `
 const MoonImage = styled('div')`
-  background: yellow;
+  background: rgb(242, 215, 73);
   width: 40px;
   height: 20px;
   border-radius: 50px 50px 0 0;

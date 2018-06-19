@@ -5,14 +5,19 @@ const StyledSaveButton = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: coral;
+  background: rgb(29, 54, 73);
   grid-area: save;
-  border-radius: 50%;
-  width: 50px;
+  border-radius: 7px;
+  width: 90px;
   height: 50px;
+  transition: all 0.4s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `
 const Span = styled('div')`
-  font-size: 18px;
+  font-size: 20px;
   color: whitesmoke;
   margin: 5px;
   text-decoration: none;

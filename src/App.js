@@ -2,13 +2,17 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import styled from 'react-emotion'
 
+import globalStyles from './styles/global'
+
 import StartPage from './components/StartPage'
 import SettingsPage from './components/SettingsPage'
 import Animation from './components/Animation'
 
+globalStyles()
+
 const Span = styled('div')`
-  font-size: 30px;
-  color: whitesmoke;
+  font-size: 20px;
+  color: rgb(29, 54, 73);
   margin-left: 10px;
 `
 
