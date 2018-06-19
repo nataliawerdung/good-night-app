@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'react-emotion'
-import { css } from 'emotion'
 
 import DropDown from './DropDown'
 import SaveButton from './SaveButton'

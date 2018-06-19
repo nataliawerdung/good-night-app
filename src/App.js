@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import styled from 'react-emotion'
 
 import globalStyles from './styles/global'
@@ -50,6 +50,8 @@ class App extends Component {
   }
 
   selectDay = value => {
+    //const value = rawValue.filter(rawValue === date)
+    //if (value.isValid()) {
     this.setState({ selectedDay: value })
   }
 

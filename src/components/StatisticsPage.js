@@ -32,7 +32,7 @@ export default class StatisticsPage extends Component {
     return (
       <Grid>
         <HomeButton />
-
+        <Chart />
         <Empty />
       </Grid>
     )

@@ -19,6 +19,7 @@ const Grid = styled('div')`
     rgba(28, 53, 72, 0.7) 30%
   );
   font-size: 20px;
+  cursor: pointer;
 `
 
 export default Grid
