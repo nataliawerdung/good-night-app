@@ -5,6 +5,10 @@ import { css } from 'emotion'
 
 const StyledDiv = styled('div')`
   grid-area: nav;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 `
 const Button = styled('div')`
   display: flex;
@@ -39,6 +43,11 @@ export default class NavButton extends Component {
         <Button>
           <Link className={noUnderline} to="/settings">
             <Span>settings</Span>
+          </Link>
+        </Button>
+        <Button>
+          <Link className={noUnderline} to="/statistics">
+            <Span>statistics</Span>
           </Link>
         </Button>
       </StyledDiv>

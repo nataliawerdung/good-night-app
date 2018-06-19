@@ -7,6 +7,7 @@ import globalStyles from './styles/global'
 import StartPage from './components/StartPage'
 import SettingsPage from './components/SettingsPage'
 import Animation from './components/Animation'
+import StatisticsPage from './components/StatisticsPage'
 
 globalStyles()
 
@@ -129,6 +130,10 @@ class App extends Component {
                 />
               </React.Fragment>
             )}
+          />
+          <Route
+            path="/statistics"
+            render={() => <StatisticsPage state={this.state} />}
           />
           <Route
             path="/settings"
