@@ -49,10 +49,11 @@ class App extends Component {
     this.setState({ newSleepLength: event.target.value })
   }
 
-  selectDay = value => {
-    //const value = rawValue.filter(rawValue === date)
-    //if (value.isValid()) {
-    this.setState({ selectedDay: value })
+  selectDay = rawValue => {
+    let selectedDay = new Date(rawValue.select)
+    //({
+    //format: 'yyyy/mm/dd',
+    this.setState({ selectedDay: selectedDay })
   }
 
   onSave = () => {
@@ -63,6 +64,7 @@ class App extends Component {
           {
             date: this.state.selectedDay,
             sleepLength: this.state.newSleepLength,
+            id: this.state.selectedDay,
           },
         ],
         selectedDay: this.state.today,

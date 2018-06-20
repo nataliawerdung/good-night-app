@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'react-emotion'
 
 import HomeButton from './HomeButton'
+import Chart from 'chart.js'
 
 const Grid = styled('div')`
   display: grid;
@@ -17,9 +18,10 @@ const Grid = styled('div')`
   font-size: 20px;
 `
 
-const Chart = styled('div')`
+const ChartDiv = styled('div')`
   grid-area: chart;
   background: rgb(133, 172, 249);
+  width: 80%;
 `
 
 const Empty = styled('div')`
@@ -28,13 +30,60 @@ const Empty = styled('div')`
 `
 
 export default class StatisticsPage extends Component {
+  state = {
+    lastWeekDays: [],
+    lastWeekDates: [],
+    lastWeekSleepGoals: [],
+    lastWeekSleepLenghts: [],
+  }
+
   render() {
     return (
       <Grid>
         <HomeButton />
-        <Chart />
+        <ChartDiv />
         <Empty />
       </Grid>
     )
   }
+
+  componentDidMount() {
+    this.getLastWeekDays()
+    this.getLastWeekDates()
+    this.getLastWeekSleepLengths()
+    this.getLastWeekSleepGoals()
+    window.addEventListener(
+      'beforeunload',
+      this.saveStateToLocalStorage.bind(this)
+    )
+  }
+
+  getLastWeekDays() {
+    let state = localStorage.getItem(...JSON.parse('state'))
+    let lastWeekDays = state.days
+    this.setState({ lastWeekDays: lastWeekDays })
+    //wie kriege ich die letzten 7 Tage?? benötige ich die id?
+  }
+  //showChart = () => {
+  // const chart = new Chart(ctx, {
+  //  type: 'line',
+  //  data: data,
+  //  options: {
+  //   scales: {
+  //     xAxes: [
+  //       {
+  //         time: {
+  //           unit: 'day',
+  //         },
+  //         yAxes: [
+  //           {
+  //             time: {
+  //              unit: 'hour',
+  //             },
+  //        },
+  //      ],
+  //    },
+  //  },
+  // })
+  // }
 }
