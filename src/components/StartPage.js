@@ -7,6 +7,7 @@ import DateField from './DateField'
 import Grid from './Grid'
 import NavButton from './NavButton'
 import Animation from './Animation'
+import Simplert from 'react-simplert'
 
 const Headline = styled('h2')`
   grid-area: goal;
@@ -52,7 +53,13 @@ export default class StartPage extends Component {
           }}
           onClick={this.onSave}
         />
-        <Placeholder>{this.state.didSave && this.renderMessage()}</Placeholder>
+        <Placeholder>
+          {this.state.didSave && this.renderMessage()}
+          <Simplert
+            showSimplert={this.props.showAlert}
+            message={'please set a date before saving'}
+          />
+        </Placeholder>
         <NavButton />
       </Grid>
     )

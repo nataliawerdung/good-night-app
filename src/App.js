@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import styled from 'react-emotion'
 
 import globalStyles from './styles/global'
 
@@ -17,6 +16,7 @@ class App extends Component {
     newSleepLength: 8,
     message: '',
     today: this.getToday(),
+    showSimplert: false,
   }
 
   getToday() {
@@ -47,29 +47,33 @@ class App extends Component {
   }
 
   selectDay = event => {
-    console.log(event.target)
     this.setState({
       selectedDay: this.formatDate(event.target.valueAsDate),
     })
   }
 
   onSave = () => {
-    this.setState(
-      {
-        days: {
-          ...this.state.days,
-          [this.state.selectedDay]: {
-            sleepLength: this.state.newSleepLength,
-            id: this.state.selectedDay,
-            sleepGoal: this.state.sleepGoal,
+    if (this.state.selectedDay != null) {
+      this.setState(
+        {
+          days: {
+            ...this.state.days,
+            [this.state.selectedDay]: {
+              sleepLength: this.state.newSleepLength,
+              id: this.state.selectedDay,
+              sleepGoal: this.state.sleepGoal,
+            },
           },
+          selectedDay: this.state.today,
         },
-        selectedDay: this.state.today,
-      },
-      () => {
-        this.saveStateToLocalStorage()
-      }
-    )
+        () => {
+          this.saveStateToLocalStorage()
+        }
+      )
+    } else
+      this.setState({
+        showSimplert: true,
+      })
   }
 
   saveStateToLocalStorage() {
@@ -120,6 +124,8 @@ class App extends Component {
                   handleChange={this.handleChange}
                   selectDay={this.selectDay}
                   onSave={this.onSave}
+                  showSimplert={this.showSimplert}
+                  message={this.message}
                 />
               </React.Fragment>
             )}

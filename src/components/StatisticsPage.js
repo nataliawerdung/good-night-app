@@ -1,4 +1,5 @@
 import React, { Component, createRef } from 'react'
+import moment from 'moment'
 import styled from 'react-emotion'
 
 import HomeButton from './HomeButton'
@@ -55,27 +56,35 @@ export default class StatisticsPage extends Component {
     return Object.keys(days).map(dateString => {
       const dateEntry = days[dateString]
       return {
-        x: new Date(dateString),
+        x: moment(dateString),
+        // x: new Date(dateString),
         y: dateEntry.sleepLength,
       }
     })
   }
 
   showChart = ctx => {
-    const chart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'line',
-      data: this.getData(),
-      options: {
-        scales: {
-          xAxes: [
-            {
-              type: 'time',
-              time: {
-                unit: 'day',
-              },
+      data: {
+        datasets: [
+          {
+            label: 'days',
+            data: this.getData(),
+            borderWidth: 1,
+            time: {
+              unit: 'day',
             },
-          ],
-        },
+          },
+          {
+            label: 'hours slept',
+            data: this.getData(),
+            borderWidth: 1,
+            time: {
+              unit: 'number',
+            },
+          },
+        ],
       },
     })
   }
