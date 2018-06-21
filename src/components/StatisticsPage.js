@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, createRef } from 'react'
 import styled from 'react-emotion'
 
 import HomeButton from './HomeButton'
@@ -18,7 +18,7 @@ const Grid = styled('div')`
   font-size: 20px;
 `
 
-const ChartDiv = styled('div')`
+const ChartDiv = styled('canvas')`
   grid-area: chart;
   background: rgb(133, 172, 249);
   width: 80%;
@@ -30,60 +30,53 @@ const Empty = styled('div')`
 `
 
 export default class StatisticsPage extends Component {
-  state = {
-    lastWeekDays: [],
-    lastWeekDates: [],
-    lastWeekSleepGoals: [],
-    lastWeekSleepLenghts: [],
-  }
+  canvas = createRef()
 
   render() {
     return (
       <Grid>
         <HomeButton />
-        <ChartDiv />
+        <ChartDiv innerRef={this.canvas} />
         <Empty />
       </Grid>
     )
   }
 
   componentDidMount() {
-    this.getLastWeekDays()
-    this.getLastWeekDates()
-    this.getLastWeekSleepLengths()
-    this.getLastWeekSleepGoals()
-    window.addEventListener(
-      'beforeunload',
-      this.saveStateToLocalStorage.bind(this)
-    )
+    if (this.canvas.current) {
+      const ctx = this.canvas.current.getContext('2d')
+      this.showChart(ctx)
+    }
   }
 
-  getLastWeekDays() {
-    let state = localStorage.getItem(...JSON.parse('state'))
-    let lastWeekDays = state.days
-    this.setState({ lastWeekDays: lastWeekDays })
-    //wie kriege ich die letzten 7 Tage?? benötige ich die id?
+  getData() {
+    const days = this.props.state.days
+
+    return Object.keys(days).map(dateString => {
+      const dateEntry = days[dateString]
+      return {
+        x: new Date(dateString),
+        y: dateEntry.sleepLength,
+      }
+    })
   }
-  //showChart = () => {
-  // const chart = new Chart(ctx, {
-  //  type: 'line',
-  //  data: data,
-  //  options: {
-  //   scales: {
-  //     xAxes: [
-  //       {
-  //         time: {
-  //           unit: 'day',
-  //         },
-  //         yAxes: [
-  //           {
-  //             time: {
-  //              unit: 'hour',
-  //             },
-  //        },
-  //      ],
-  //    },
-  //  },
-  // })
-  // }
+
+  showChart = ctx => {
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: this.getData(),
+      options: {
+        scales: {
+          xAxes: [
+            {
+              type: 'time',
+              time: {
+                unit: 'day',
+              },
+            },
+          ],
+        },
+      },
+    })
+  }
 }

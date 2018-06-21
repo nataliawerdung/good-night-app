@@ -6,16 +6,9 @@ import globalStyles from './styles/global'
 
 import StartPage from './components/StartPage'
 import SettingsPage from './components/SettingsPage'
-import Animation from './components/Animation'
 import StatisticsPage from './components/StatisticsPage'
 
 globalStyles()
-
-const Span = styled('div')`
-  font-size: 20px;
-  color: rgb(29, 54, 73);
-  margin-left: 10px;
-`
 
 class App extends Component {
   state = {
@@ -28,9 +21,13 @@ class App extends Component {
 
   getToday() {
     let today = new Date()
-    let dd = today.getDate()
-    let mm = today.getMonth() + 1
-    let yyyy = today.getFullYear()
+    return this.formatDate(today)
+  }
+
+  formatDate(date) {
+    let dd = date.getDate()
+    let mm = date.getMonth() + 1
+    let yyyy = date.getFullYear()
     if (dd < 10) {
       dd = '0' + dd
     }
@@ -49,64 +46,56 @@ class App extends Component {
     this.setState({ newSleepLength: event.target.value })
   }
 
-  selectDay = rawValue => {
-    let selectedDay = new Date(rawValue.select)
-    //({
-    //format: 'yyyy/mm/dd',
-    this.setState({ selectedDay: selectedDay })
+  selectDay = event => {
+    console.log(event.target)
+    this.setState({
+      selectedDay: this.formatDate(event.target.valueAsDate),
+    })
   }
 
   onSave = () => {
     this.setState(
       {
-        days: [
+        days: {
           ...this.state.days,
-          {
-            date: this.state.selectedDay,
+          [this.state.selectedDay]: {
             sleepLength: this.state.newSleepLength,
             id: this.state.selectedDay,
+            sleepGoal: this.state.sleepGoal,
           },
-        ],
+        },
         selectedDay: this.state.today,
-        message: this.getMessage(),
       },
       () => {
         this.saveStateToLocalStorage()
       }
     )
   }
-  getMessage() {
-    const goal = this.state.sleepGoal
-    const hours = this.state.newSleepLength
-    if (hours >= goal) {
-      return <Animation message={'Well done!'} />
-    }
-    return <Span>Try to go to bed early today</Span>
-  }
+
   saveStateToLocalStorage() {
     localStorage.setItem('state', JSON.stringify(this.state))
   }
 
   componentDidMount() {
-    this.getData()
-    window.addEventListener(
-      'beforeunload',
-      this.saveStateToLocalStorage.bind(this)
-    )
+    this.setState(this.getData())
+    // window.addEventListener(
+    //   'beforeunload',
+    //   this.saveStateToLocalStorage.bind(this)
+    // )
   }
 
   componentWillUnmount() {
-    window.removeEventListener(
-      'beforeunload',
-      this.saveStateToLocalStorage.bind(this)
-    )
+    // window.removeEventListener(
+    //   'beforeunload',
+    //   this.saveStateToLocalStorage.bind(this)
+    // )
     this.saveStateToLocalStorage()
   }
 
   getData() {
     let state = localStorage.getItem('state')
     if (state) {
-      return { ...JSON.parse(state) }
+      return JSON.parse(state)
     } else {
       return this.state
     }

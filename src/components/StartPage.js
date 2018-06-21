@@ -6,6 +6,7 @@ import SaveButton from './SaveButton'
 import DateField from './DateField'
 import Grid from './Grid'
 import NavButton from './NavButton'
+import Animation from './Animation'
 
 const Headline = styled('h2')`
   grid-area: goal;
@@ -19,25 +20,60 @@ const Placeholder = styled('div')`
   background: rgb(133, 172, 249);
 `
 
+const Span = styled('div')`
+  font-size: 20px;
+  color: rgb(29, 54, 73);
+  margin-left: 10px;
+`
+
 export default class StartPage extends Component {
+  state = {
+    didSave: false,
+  }
+
   render() {
     return (
-      <Grid>
+      <Grid onClick={this.onClickAnywhere}>
         <Headline>goal: {this.props.state.sleepGoal} hours</Headline>
         <DateField
           max={this.props.state.today}
-          onClick={this.props.setMaxDay}
+          onClick={e => (this.resetDidSave(), this.props.setMaxDay)}
           onChange={this.props.selectDay}
         />
         <DropDown
           value={this.props.state.newSleepLength}
           onChange={this.props.handleChange}
+          onClick={e => this.resetDidSave()}
           text="How long did you sleep?"
         />
-        <SaveButton onClick={this.props.onSave} />
-        <Placeholder>{this.props.state.message}</Placeholder>
+        <SaveButton
+          ref={ref => {
+            this.saveButton = ref
+          }}
+          onClick={this.onSave}
+        />
+        <Placeholder>{this.state.didSave && this.renderMessage()}</Placeholder>
         <NavButton />
       </Grid>
     )
+  }
+
+  resetDidSave = () => {
+    this.setState({ didSave: false })
+  }
+
+  onSave = () => {
+    this.setState({ didSave: true })
+    this.props.onSave()
+  }
+
+  renderMessage() {
+    const goal = this.props.state.sleepGoal
+    const hours = this.props.state.newSleepLength
+    if (hours >= goal) {
+      return <Animation message={'Well done!'} />
+    } else if (hours && hours < goal) {
+      return <Span>Try to go to bed early today</Span>
+    }
   }
 }

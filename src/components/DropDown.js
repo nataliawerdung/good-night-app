@@ -17,7 +17,7 @@ export default class DropDown extends Component {
   }
 
   render() {
-    const { value, onChange, text } = this.props
+    const { value, onChange, onClick, text } = this.props
     return (
       <div className={this.styles}>
         <label>
@@ -25,6 +25,7 @@ export default class DropDown extends Component {
           <select
             value={value}
             onChange={onChange}
+            onClick={onClick}
             className={css`
               color: rgb(29, 54, 73);
               font-size: 16px;
