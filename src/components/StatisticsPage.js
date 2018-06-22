@@ -50,39 +50,69 @@ export default class StatisticsPage extends Component {
     }
   }
 
-  getData() {
+  getSleptData() {
     const days = this.props.state.days
 
     return Object.keys(days).map(dateString => {
       const dateEntry = days[dateString]
       return {
         x: moment(dateString),
-        // x: new Date(dateString),
         y: dateEntry.sleepLength,
       }
     })
   }
 
+  getGoalData() {
+    const days = this.props.state.days
+
+    return Object.keys(days).map(dateString => {
+      const dateEntry = days[dateString]
+      return {
+        x: moment(dateString),
+        y: dateEntry.sleepGoal,
+      }
+    })
+  }
+
+  getLabels() {
+    const dates = Object.keys(this.props.state.days)
+      .slice(0, 7)
+      .map(day => {
+        return moment(day).fromNow()
+      })
+
+    dates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+    return dates
+  }
+
   showChart = ctx => {
     new Chart(ctx, {
       type: 'line',
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                suggestedMin: 0,
+                suggestedMax: 14,
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
       data: {
+        labels: this.getLabels(),
         datasets: [
           {
-            label: 'days',
-            data: this.getData(),
-            borderWidth: 1,
-            time: {
-              unit: 'day',
-            },
+            label: 'slept hours',
+            data: this.getSleptData(),
+            backgroundColor: 'rgba(153,255,51,0.4)',
           },
           {
-            label: 'hours slept',
-            data: this.getData(),
-            borderWidth: 1,
-            time: {
-              unit: 'number',
-            },
+            label: 'sleep goals',
+            data: this.getGoalData(),
+            backgroundColor: 'rgba(255,153,0,0.4)',
           },
         ],
       },

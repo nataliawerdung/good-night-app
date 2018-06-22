@@ -64,7 +64,6 @@ export default class StartPage extends Component {
       </Grid>
     )
   }
-
   resetDidSave = () => {
     this.setState({ didSave: false })
   }
@@ -82,5 +81,8 @@ export default class StartPage extends Component {
     } else if (hours && hours < goal) {
       return <Span>Try to go to bed early today</Span>
     }
+  }
+  showAlert() {
+    return <Simplert />
   }
 }

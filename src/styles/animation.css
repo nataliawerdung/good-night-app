@@ -15,7 +15,7 @@
   transform-origin: bottom center;
   transform: rotate(265deg);
   position: absolute;
-  top: 17vw;
+  top: 13vw;
   left: 5vw;
   bottom: 3vw;
 }
@@ -53,8 +53,8 @@
 .text {
   position: absolute;
   right: 20vw;
-  left: 20vw;
-  top: 5vw;
+  left: 25vw;
+  top: 2vw;
   font-size: 30px;
   color: rgb(29, 54, 73);
   margin-left: 5px;

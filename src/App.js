@@ -11,7 +11,43 @@ globalStyles()
 
 class App extends Component {
   state = {
-    days: [],
+    days: {
+      '2018-06-05': {
+        sleepLength: 11,
+        id: '2018-06-05',
+        sleepGoal: 5,
+      },
+      '2018-03-06': {
+        sleepLength: 8,
+        id: '2018-06-07',
+        sleepGoal: 12,
+      },
+      '2018-02-05': {
+        sleepLength: 5,
+        id: '2018-06-07',
+        sleepGoal: 12,
+      },
+      '2018-01-07': {
+        sleepLength: 8,
+        id: '2018-06-07',
+        sleepGoal: 4,
+      },
+      '2018-03-07': {
+        sleepLength: 8,
+        id: '2018-06-07',
+        sleepGoal: 12,
+      },
+      '2018-06-07': {
+        sleepLength: 8,
+        id: '2018-06-07',
+        sleepGoal: 12,
+      },
+      '2018-06-21': {
+        sleepLength: 4,
+        id: '2018-06-21',
+        sleepGoal: 8,
+      },
+    },
     sleepGoal: 8,
     newSleepLength: 8,
     message: '',
@@ -43,7 +79,7 @@ class App extends Component {
   }
 
   handleChange = event => {
-    this.setState({ newSleepLength: event.target.value })
+    this.setState({ newSleepLength: parseInt(event.target.value, 10) })
   }
 
   selectDay = event => {
@@ -65,6 +101,7 @@ class App extends Component {
             },
           },
           selectedDay: this.state.today,
+          showSimplert: false,
         },
         () => {
           this.saveStateToLocalStorage()
