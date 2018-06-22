@@ -22,9 +22,10 @@ const Placeholder = styled('div')`
 `
 
 const Span = styled('div')`
-  font-size: 20px;
+  font-size: 24px;
   color: rgb(29, 54, 73);
-  margin-left: 10px;
+  margin-left: 35px;
+  margin-top: 15px;
 `
 
 export default class StartPage extends Component {

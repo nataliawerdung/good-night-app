@@ -89,7 +89,7 @@ class App extends Component {
   }
 
   onSave = () => {
-    if (this.state.selectedDay != null) {
+    if (this.state.selectedDay !== null) {
       this.setState(
         {
           days: {

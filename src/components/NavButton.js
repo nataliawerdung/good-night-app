@@ -17,8 +17,8 @@ const Button = styled('div')`
   margin: 15px;
   background: whitesmoke;
   border-radius: 7px;
-  height: 50px;
-  width: 90px;
+  height: 55px;
+  width: 105px;
   border: none;
   transition: all 0.4s ease;
 
@@ -27,7 +27,7 @@ const Button = styled('div')`
   }
 `
 const Span = styled('div')`
-  font-size: 18px;
+  font-size: 22px;
   color: rgb(29, 54, 73);
   margin: 5px;
 `

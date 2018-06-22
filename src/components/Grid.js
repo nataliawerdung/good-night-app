@@ -18,7 +18,7 @@ const Grid = styled('div')`
     rgb(133, 172, 249) 70%,
     rgba(28, 53, 72, 0.7) 30%
   );
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
 `
 

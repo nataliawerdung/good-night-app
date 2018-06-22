@@ -31,7 +31,7 @@ export default class DateField extends Component {
             border-width: 0px;
             border: none;
             color: rgb(29, 54, 73);
-            font-size: 14px;
+            font-size: 20px;
           `}
         />
       </StyledDateField>

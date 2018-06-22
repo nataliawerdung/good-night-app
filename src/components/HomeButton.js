@@ -9,8 +9,8 @@ const Button = styled('button')`
   margin: 10px;
   background: rgb(28, 53, 72);
   border-radius: 50%;
-  height: 70px;
-  width: 70px;
+  height: 75px;
+  width: 75px;
   border: none;
   grid-area: home;
   transition: all 0.4s ease;

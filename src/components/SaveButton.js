@@ -17,7 +17,7 @@ const StyledSaveButton = styled('div')`
   }
 `
 const Span = styled('div')`
-  font-size: 20px;
+  font-size: 22px;
   color: whitesmoke;
   margin: 5px;
   text-decoration: none;

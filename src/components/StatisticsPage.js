@@ -16,7 +16,7 @@ const Grid = styled('div')`
     'empty empty empty';
   background: rgb(133, 172, 249);
   color: rgb(29, 54, 73);
-  font-size: 20px;
+  font-size: 22px;
 `
 
 const ChartDiv = styled('canvas')`

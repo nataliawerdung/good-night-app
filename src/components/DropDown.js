@@ -28,7 +28,7 @@ export default class DropDown extends Component {
             onClick={onClick}
             className={css`
               color: rgb(29, 54, 73);
-              font-size: 16px;
+              font-size: 20px;
             `}
           >
             <option value="5">5</option>
