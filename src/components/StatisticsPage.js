@@ -21,13 +21,11 @@ const Grid = styled('div')`
 
 const ChartDiv = styled('canvas')`
   grid-area: chart;
-  background: rgb(133, 172, 249);
   width: 80%;
 `
 
 const Empty = styled('div')`
   grid-area: empty;
-  background: rgb(133, 172, 249);
 `
 
 export default class StatisticsPage extends Component {
@@ -93,7 +91,7 @@ export default class StatisticsPage extends Component {
           yAxes: [
             {
               ticks: {
-                suggestedMin: 0,
+                suggestedMin: 5,
                 suggestedMax: 14,
                 beginAtZero: true,
               },
@@ -107,12 +105,12 @@ export default class StatisticsPage extends Component {
           {
             label: 'slept hours',
             data: this.getSleptData(),
-            backgroundColor: 'rgba(153,255,51,0.4)',
+            backgroundColor: 'rgba(242, 215, 73, 0.7)',
           },
           {
             label: 'sleep goals',
             data: this.getGoalData(),
-            backgroundColor: 'rgba(255,153,0,0.4)',
+            backgroundColor: 'rgba(29, 55, 73, 0.7)',
           },
         ],
       },

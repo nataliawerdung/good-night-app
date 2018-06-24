@@ -39,7 +39,8 @@ export default class StartPage extends Component {
         <Headline>goal: {this.props.state.sleepGoal} hours</Headline>
         <DateField
           max={this.props.state.today}
-          onClick={e => (this.resetDidSave(), this.props.setMaxDay)}
+          onClick={this.resetDidSave}
+          onClick={this.props.setMaxDay}
           onChange={this.props.selectDay}
         />
         <DropDown
