@@ -51,41 +51,48 @@ export default class StatisticsPage extends Component {
   getSleptData() {
     const days = this.props.state.days
 
-    return Object.keys(days).map(dateString => {
+    const data = Object.keys(days).map(dateString => {
       const dateEntry = days[dateString]
       return {
-        x: moment(dateString),
+        x: moment(dateString).format('YYYY-MM-DD'),
         y: dateEntry.sleepLength,
       }
     })
+    return data.sort(
+      (a, b) => new Date(b.x).getTime() - new Date(a.x).getTime()
+    )
   }
 
   getGoalData() {
     const days = this.props.state.days
 
-    return Object.keys(days).map(dateString => {
+    const data = Object.keys(days).map(dateString => {
       const dateEntry = days[dateString]
       return {
-        x: moment(dateString),
+        x: moment(dateString).format('YYYY-MM-DD'),
         y: dateEntry.sleepGoal,
       }
     })
+    return data.sort(
+      (a, b) => new Date(b.x).getTime() - new Date(a.x).getTime()
+    )
   }
 
   getLabels() {
     const dates = Object.keys(this.props.state.days)
       .slice(0, 7)
       .map(day => {
-        return moment(day).format('ddd, D. M.')
+        return moment(day).format('YYYY-MM-DD')
       })
 
-    dates.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
-    return dates
+    dates.sort((b, a) => new Date(b).getTime() - new Date(a).getTime())
+    return dates.map(date => moment(date).format('DD.MM.'))
   }
 
   showChart = ctx => {
     new Chart(ctx, {
       type: 'line',
+      display: true,
       options: {
         scales: {
           yAxes: [
@@ -105,12 +112,14 @@ export default class StatisticsPage extends Component {
           {
             label: 'slept hours',
             data: this.getSleptData(),
-            backgroundColor: 'rgba(242, 215, 73, 0.7)',
+            fill: false,
+            borderColor: 'rgb(242, 215, 73)',
           },
           {
             label: 'sleep goals',
             data: this.getGoalData(),
-            backgroundColor: 'rgba(29, 55, 73, 0.7)',
+            fill: false,
+            borderColor: 'rgb(29, 55, 73)',
           },
         ],
       },

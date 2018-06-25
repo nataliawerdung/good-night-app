@@ -80,7 +80,6 @@ export default class StartPage extends Component {
   }
 
   onChangeDate = event => {
-    this.resetSimplert()
     this.props.selectDay(event)
   }
 
