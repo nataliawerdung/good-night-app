@@ -13,10 +13,10 @@ class App extends Component {
   state = {
     days: {},
     sleepGoal: 8,
+    selectedDay: null,
     newSleepLength: 8,
     message: '',
     today: this.getToday(),
-    showSimplert: false,
   }
 
   getToday() {
@@ -53,7 +53,7 @@ class App extends Component {
   }
 
   onSave = () => {
-    if (this.state.today !== null) {
+    if (this.state.selectedDay !== null) {
       this.setState(
         {
           days: {
@@ -65,16 +65,12 @@ class App extends Component {
             },
           },
           selectedDay: this.state.today,
-          showSimplert: false,
         },
         () => {
           this.saveStateToLocalStorage()
         }
       )
-    } else
-      this.setState({
-        showSimplert: true,
-      })
+    }
   }
 
   saveStateToLocalStorage() {
@@ -125,7 +121,6 @@ class App extends Component {
                   handleChange={this.handleChange}
                   selectDay={this.selectDay}
                   onSave={this.onSave}
-                  showSimplert={this.showSimplert}
                   message={this.message}
                 />
               </React.Fragment>

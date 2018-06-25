@@ -76,10 +76,10 @@ export default class StatisticsPage extends Component {
     const dates = Object.keys(this.props.state.days)
       .slice(0, 7)
       .map(day => {
-        return moment(day).fromNow()
+        return moment(day).format('ddd, D. M.')
       })
 
-    dates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+    dates.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
     return dates
   }
 

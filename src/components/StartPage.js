@@ -31,48 +31,66 @@ const Span = styled('div')`
 export default class StartPage extends Component {
   state = {
     didSave: false,
+    showSimplert: false,
   }
 
   render() {
     return (
-      <Grid onClick={this.onClickAnywhere}>
-        <Headline>goal: {this.props.state.sleepGoal} hours</Headline>
-        <DateField
-          max={this.props.state.today}
-          onClick={this.resetDidSave}
-          onClick={this.props.setMaxDay}
-          onChange={this.props.selectDay}
-        />
-        <DropDown
-          value={this.props.state.newSleepLength}
-          onChange={this.props.handleChange}
-          onClick={e => this.resetDidSave()}
-          text="How long did you sleep?"
-        />
-        <SaveButton
-          ref={ref => {
-            this.saveButton = ref
-          }}
-          onClick={this.onSave}
-        />
-        <Placeholder>
-          {this.state.didSave && this.renderMessage()}
-          <Simplert
-            showSimplert={this.props.showAlert}
-            message={'please set a date before saving'}
+      <React.Fragment>
+        <Grid>
+          <Headline>goal: {this.props.state.sleepGoal} hours</Headline>
+          <DateField
+            max={this.props.state.today}
+            onClick={this.resetDidSave}
+            onClick={this.props.setMaxDay}
+            onChange={this.onChangeDate}
           />
-        </Placeholder>
-        <NavButton />
-      </Grid>
+          <DropDown
+            value={this.props.state.newSleepLength}
+            onChange={this.props.handleChange}
+            onClick={this.resetDidSave}
+            text="How long did you sleep?"
+          />
+          <SaveButton
+            ref={ref => {
+              this.saveButton = ref
+            }}
+            onClick={this.onSave}
+          />
+          <Placeholder>
+            {this.state.didSave && this.renderMessage()}
+          </Placeholder>
+          <NavButton />
+        </Grid>
+        <Simplert
+          showSimplert={this.state.showSimplert}
+          message={'please set a date before saving'}
+          onClose={this.resetSimplert}
+        />
+      </React.Fragment>
     )
   }
+
   resetDidSave = () => {
     this.setState({ didSave: false })
   }
 
+  resetSimplert = () => {
+    this.setState({ showSimplert: false })
+  }
+
+  onChangeDate = event => {
+    this.resetSimplert()
+    this.props.selectDay(event)
+  }
+
   onSave = () => {
-    this.setState({ didSave: true })
-    this.props.onSave()
+    if (this.props.state.selectedDay != null) {
+      this.setState({ didSave: true })
+      this.props.onSave()
+    } else {
+      this.setState({ showSimplert: true })
+    }
   }
 
   renderMessage() {
@@ -83,8 +101,5 @@ export default class StartPage extends Component {
     } else if (hours && hours < goal) {
       return <Span>Try to go to bed early today</Span>
     }
-  }
-  showAlert() {
-    return <Simplert />
   }
 }
