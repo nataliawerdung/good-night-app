@@ -9,7 +9,7 @@ const StyledDateField = styled('div')`
   margin-left: 10px;
   margin-right: 10px;
   padding: 15px;
-  border: 1px solid rgb(242, 215, 73);
+  border: 2px solid rgb(242, 215, 73);
   border-radius: 7px;
 `
 
@@ -31,7 +31,7 @@ export default class DateField extends Component {
             border-width: 0px;
             border: none;
             color: rgb(29, 54, 73);
-            font-size: 14px;
+            font-size: 20px;
           `}
         />
       </StyledDateField>

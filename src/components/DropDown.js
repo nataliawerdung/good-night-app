@@ -8,7 +8,7 @@ export default class DropDown extends Component {
       margin-bottom: 25px;
       padding: 15px;
       grid-area: hours;
-      border: 1px solid rgb(242, 215, 73);
+      border: 2px solid rgb(242, 215, 73);
       margin-left: 10px;
       margin-right: 10px;
       border-radius: 7px;
@@ -17,7 +17,7 @@ export default class DropDown extends Component {
   }
 
   render() {
-    const { value, onChange, text } = this.props
+    const { value, onChange, onClick, text } = this.props
     return (
       <div className={this.styles}>
         <label>
@@ -25,9 +25,10 @@ export default class DropDown extends Component {
           <select
             value={value}
             onChange={onChange}
+            onClick={onClick}
             className={css`
               color: rgb(29, 54, 73);
-              font-size: 16px;
+              font-size: 20px;
             `}
           >
             <option value="5">5</option>

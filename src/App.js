@@ -1,25 +1,19 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import styled from 'react-emotion'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import globalStyles from './styles/global'
 
 import StartPage from './components/StartPage'
 import SettingsPage from './components/SettingsPage'
-import Animation from './components/Animation'
+import StatisticsPage from './components/StatisticsPage'
 
 globalStyles()
 
-const Span = styled('div')`
-  font-size: 20px;
-  color: rgb(29, 54, 73);
-  margin-left: 10px;
-`
-
 class App extends Component {
   state = {
-    days: [],
+    days: {},
     sleepGoal: 8,
+    selectedDay: null,
     newSleepLength: 8,
     message: '',
     today: this.getToday(),
@@ -27,9 +21,13 @@ class App extends Component {
 
   getToday() {
     let today = new Date()
-    let dd = today.getDate()
-    let mm = today.getMonth() + 1
-    let yyyy = today.getFullYear()
+    return this.formatDate(today)
+  }
+
+  formatDate(date) {
+    let dd = date.getDate()
+    let mm = date.getMonth() + 1
+    let yyyy = date.getFullYear()
     if (dd < 10) {
       dd = '0' + dd
     }
@@ -45,63 +43,61 @@ class App extends Component {
   }
 
   handleChange = event => {
-    this.setState({ newSleepLength: event.target.value })
+    this.setState({ newSleepLength: parseInt(event.target.value, 10) })
   }
 
-  selectDay = value => {
-    this.setState({ selectedDay: value })
+  selectDay = event => {
+    this.setState({
+      selectedDay: this.formatDate(event.target.valueAsDate),
+    })
   }
 
   onSave = () => {
-    this.setState(
-      {
-        days: [
-          ...this.state.days,
-          {
-            date: this.state.selectedDay,
-            sleepLength: this.state.newSleepLength,
+    if (this.state.selectedDay !== null) {
+      this.setState(
+        {
+          days: {
+            ...this.state.days,
+            [this.state.selectedDay]: {
+              sleepLength: this.state.newSleepLength,
+              id: this.state.selectedDay,
+              sleepGoal: this.state.sleepGoal,
+            },
           },
-        ],
-        selectedDay: this.state.today,
-        message: this.getMessage(),
-      },
-      () => {
-        this.saveStateToLocalStorage()
-      }
-    )
-  }
-  getMessage() {
-    const goal = this.state.sleepGoal
-    const hours = this.state.newSleepLength
-    if (hours >= goal) {
-      return <Animation message={'Well done!'} />
+          selectedDay: this.state.today,
+        },
+        () => {
+          this.saveStateToLocalStorage()
+        }
+      )
     }
-    return <Span>Try to go to bed early today</Span>
   }
+
   saveStateToLocalStorage() {
     localStorage.setItem('state', JSON.stringify(this.state))
   }
 
   componentDidMount() {
-    this.getData()
-    window.addEventListener(
-      'beforeunload',
-      this.saveStateToLocalStorage.bind(this)
-    )
+    this.setState(this.getData())
+    this.setState({ selectedDay: null })
+    // window.addEventListener(
+    //   'beforeunload',
+    //   this.saveStateToLocalStorage.bind(this)
+    // )
   }
 
   componentWillUnmount() {
-    window.removeEventListener(
-      'beforeunload',
-      this.saveStateToLocalStorage.bind(this)
-    )
+    // window.removeEventListener(
+    //   'beforeunload',
+    //   this.saveStateToLocalStorage.bind(this)
+    // )
     this.saveStateToLocalStorage()
   }
 
   getData() {
     let state = localStorage.getItem('state')
     if (state) {
-      return { ...JSON.parse(state) }
+      return JSON.parse(state)
     } else {
       return this.state
     }
@@ -126,9 +122,14 @@ class App extends Component {
                   handleChange={this.handleChange}
                   selectDay={this.selectDay}
                   onSave={this.onSave}
+                  message={this.message}
                 />
               </React.Fragment>
             )}
+          />
+          <Route
+            path="/statistics"
+            render={() => <StatisticsPage state={this.state} />}
           />
           <Route
             path="/settings"
