@@ -79,6 +79,7 @@ class App extends Component {
 
   componentDidMount() {
     this.setState(this.getData())
+    this.setState({ selectedDay: null })
     // window.addEventListener(
     //   'beforeunload',
     //   this.saveStateToLocalStorage.bind(this)
